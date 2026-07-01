@@ -12,6 +12,8 @@ Campos:
     PK id integer
     FK id_funcao integer referencia Funcao(id)
         nome string
+        hash_senha: string
+        tentativas: integer
 
 Tabela: Tipo_Recebivel
 Campos:
@@ -60,6 +62,11 @@ Campos:
     qtde_operacao bigdecimal(10,8)
 
 O banco utilizado será PostgreSQL. Organize o projeto tendo todas as entidades na pasta entities, e todos os repositórios na pasta repositories
+
+2. Efetue as seguintes etapas:
+    a. Para o login, será feito por JWT. Utilize BCrypt para hashing de hash_senha do usuário e validação posterior
+    b. Implemente o service e controller de autenticação no formato JWT, para login no sistema. O sistema irá funcionar no modelo cliente servidor, a partir de APIs REST, no formato bearer token, para todos os endpoints, exceto aqueles que requerem autenticação
+    c. Implemente um bloqueio de usuário após 3 tentativas falhas, e traga as tentativas restantes
 
 # EFICIÊNCIA IA
 

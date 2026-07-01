@@ -7,6 +7,8 @@ CREATE TABLE usuario (
     id SERIAL PRIMARY KEY,
     id_funcao INTEGER NOT NULL,
     nome VARCHAR(100) NOT NULL,
+    hash_senha VARCHAR(255) NOT NULL,
+    tentativas INTEGER NOT NULL DEFAULT 0,
     CONSTRAINT fk_usuario_funcao FOREIGN KEY (id_funcao) REFERENCES funcao(id)
 );
 

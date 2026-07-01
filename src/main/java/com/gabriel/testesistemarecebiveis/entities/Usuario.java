@@ -34,4 +34,10 @@ public class Usuario {
 
     @Column(nullable = false, length = 100)
     private String nome;
+
+    @Column(name = "hash_senha", nullable = false, length = 255)
+    private String hashSenha;
+
+    @Column(nullable = false)
+    private Integer tentativas;
 }
