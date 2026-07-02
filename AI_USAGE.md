@@ -49,7 +49,7 @@ Campos:
     FK id_tipo_recebivel integer referencia Tipo_Recebivel(id)
         cod_ativo string
         data_vencimento date
-        spread bigdecimal(10,8)
+        taxa_base bigdecimal(10,8)
 
 Tabela: Transacao
 Campos:
