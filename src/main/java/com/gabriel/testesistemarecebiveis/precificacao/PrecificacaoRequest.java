@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 /**
  * Dados de entrada para a precificação de um recebível.
@@ -29,4 +30,16 @@ public class PrecificacaoRequest {
 
     /** Prazo em meses até o vencimento. */
     private Integer prazoMeses;
+
+    /** Código da moeda do recebível (ex.: "BRL"). */
+    private String moedaRecebivel;
+
+    /**
+     * Código da moeda alvo para o resultado (ex.: "USD"). Quando não informada ou igual à moeda do
+     * recebível, o valor presente é mantido na moeda do recebível (sem conversão).
+     */
+    private String moeda;
+
+    /** Data de referência usada para buscar a taxa de câmbio quando há conversão de moeda. */
+    private LocalDate dataCambio;
 }

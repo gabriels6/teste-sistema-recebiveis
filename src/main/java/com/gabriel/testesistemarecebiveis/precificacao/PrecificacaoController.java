@@ -31,7 +31,10 @@ public class PrecificacaoController {
                 request.getTipoRecebivel(),
                 request.getValorFace(),
                 request.getTaxaBase(),
-                request.getPrazoMeses());
+                request.getPrazoMeses(),
+                request.getMoedaRecebivel(),
+                request.getMoeda(),
+                request.getDataCambio());
         return ResponseEntity.ok(
                 ApiResponse.success("Recebível precificado com sucesso.", resultado));
     }
