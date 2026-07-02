@@ -69,8 +69,22 @@ O banco utilizado será PostgreSQL. Organize o projeto tendo todas as entidades 
     c. Implemente um bloqueio de usuário após 3 tentativas falhas, e traga as tentativas restantes. Traga mensagens explicativas em caso de erros
     d. Crie testes unitários para cada classe criada de controller ou serviço
 
+3. Implemente as APIs de CRUD para cada uma das entidades, contendo mensagens claras em caso de erros de validação, retornos e payloads padronizados, e seguindo o padrão REST. Implemente também uma documentação dos endpoints utilizando swagger que requeira o mínimo ou nenhuma intervenção manual para atualização da documentação. Elabore a estrutura passando pelos serviços para validação das entidades e inserção/modificação/remoção. Não adicione lógicas de negócio nos controllers, apenas nos services.
+
+Implemente também testes unitários e garanta e funcionamento deles.
+
 # EFICIÊNCIA IA
 
 Prompt 1 economizou horas elaborando as entidades definidas a partir do modelo ER
 
 # DIFICULDADES IA
+
+Ao criar os testes unitários, IA utilizou recursos que não estavam mais presentes nas libs. Resolvido com prompt:
+
+Estou com problemas ao executar os testes. Algumas das classes passadas como 
+
+```
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;import org.springframework.boot.test.mock.mockito.MockBean;
+```
+
+Não foram identificadas.

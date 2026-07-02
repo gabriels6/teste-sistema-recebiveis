@@ -3,7 +3,6 @@ package com.gabriel.testesistemarecebiveis.controller;
 import com.gabriel.testesistemarecebiveis.controller.dto.AuthResponse;
 import com.gabriel.testesistemarecebiveis.controller.dto.LoginRequest;
 import com.gabriel.testesistemarecebiveis.service.AuthService;
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +20,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
+    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
         AuthResponse response = authService.authenticate(request);
         return ResponseEntity.ok(response);
     }
