@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+    "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+    "https://checkstyle.org/dtds/configuration_1_3.dtd">
+
+<!--
+  Configuração do Checkstyle do projeto.
+
+  Estratégia de severidade:
+    - severity=error  -> bloqueia o commit (via exit code != 0 no hook pre-commit)
+    - severity=warning -> apenas informa, NÃO bloqueia o commit
+
+  Somente problemas de correção/higiene de código são marcados como erro.
+  Regras puramente estéticas ficam como aviso.
+
+  Compatível com Checkstyle 8.36.x.
+-->
+<module name="Checker">
+    <property name="charset" value="UTF-8"/>
+    <property name="fileExtensions" value="java"/>
+    <!-- Severidade padrão: avisos não bloqueiam -->
+    <property name="severity" value="warning"/>
+
+    <module name="LineLength">
+        <property name="max" value="120"/>
+        <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
+    </module>
+
+    <module name="TreeWalker">
+
+        <!-- ===================================================== -->
+        <!-- ERROS: bloqueiam o commit                             -->
+        <!-- ===================================================== -->
+        <module name="UnusedImports">
+            <property name="severity" value="error"/>
+            <property name="processJavadoc" value="true"/>
+        </module>
+        <module name="RedundantImport">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="EmptyStatement">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="EqualsHashCode">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="StringLiteralEquality">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="SimplifyBooleanExpression">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="SimplifyBooleanReturn">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="MissingOverride">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="OneStatementPerLine">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="FallThrough">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="DefaultComesLast">
+            <property name="severity" value="error"/>
+        </module>
+
+        <!-- ===================================================== -->
+        <!-- AVISOS: não bloqueiam o commit                        -->
+        <!-- ===================================================== -->
+        <module name="AvoidStarImport"/>
+        <module name="NeedBraces"/>
+        <module name="LeftCurly"/>
+        <module name="RightCurly"/>
+        <module name="WhitespaceAround"/>
+
+    </module>
+</module>

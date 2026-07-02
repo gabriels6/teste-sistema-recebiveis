@@ -12,29 +12,68 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Configuração de segurança da aplicação, responsável pela cadeia de
+ * filtros de segurança, política de sessão e codificação de senhas.
+ */
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public final class SecurityConfig {
 
+    /** Filtro de autenticação JWT aplicado às requisições. */
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
-        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    /**
+     * Cria a configuração de segurança.
+     *
+     * @param authenticationFilter o filtro de autenticação JWT
+     */
+    public SecurityConfig(
+            final JwtAuthenticationFilter authenticationFilter) {
+        this.jwtAuthenticationFilter = authenticationFilter;
     }
 
+    /**
+     * Define a cadeia de filtros de segurança da aplicação.
+     *
+     * @param http o objeto de configuração de segurança HTTP
+     * @return a cadeia de filtros de segurança configurada
+     * @throws Exception caso ocorra erro ao construir a configuração
+     */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(
+            final HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(
+                                SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+                        .requestMatchers(
+                                HttpMethod.POST, "/api/auth/login")
+                        .permitAll()
+                        .requestMatchers(
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/swagger-resources/**",
+                                "/webjars/**",
+                                "/v3/api-docs/**",
+                                "/v3/api-docs.yaml",
+                                "/**/*.css",
+                                "/**/*.js")
+                        .permitAll()
                         .anyRequest().authenticated())
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthenticationFilter,
+                        UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
+    /**
+     * Fornece o codificador de senhas baseado em BCrypt.
+     *
+     * @return o codificador de senhas
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
