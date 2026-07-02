@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+ db:
+  image: postgres
+  container_name: db
+  environment:
+   - POSTGRES_USER=$USUARIO
+   - POSTGRES_PASSWORD=$SENHA
+   - POSTGRES_DB=$NOME_BD
+  ports:
+   - "$PORTA_LOCAL:$PORTA_DOCKER"
+
+app:
+ image: 'teste-sistema-recebiveis:latest'
+ build:
+   context: .
+ container_name: app
+ depends_on:
+   - db
+ environment:
+   - POSTGRES_USER=$USUARIO
+   - POSTGRES_PASSWORD=$SENHA
+   - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/$NOME_BD
+   - SPRING_DATASOURCE_USERNAME=$USUARIO
+   - SPRING_DATASOURCE_PASSWORD=$SENHA
+   - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+ ports:
+  - "$PORTA_LOCAL:$PORTA_DOCKER"
