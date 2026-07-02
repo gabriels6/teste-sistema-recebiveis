@@ -63,7 +63,7 @@ public class RecebivelService {
         existing.setTipoRecebivel(recebivel.getTipoRecebivel());
         existing.setCodAtivo(recebivel.getCodAtivo());
         existing.setDataVencimento(recebivel.getDataVencimento());
-        existing.setSpread(recebivel.getSpread());
+        existing.setTaxaBase(recebivel.getTaxaBase());
         return recebivelRepository.save(existing);
     }
 
@@ -92,8 +92,8 @@ public class RecebivelService {
         if (recebivel.getDataVencimento() == null) {
             throw new BusinessException("A data de vencimento é obrigatória.");
         }
-        if (recebivel.getSpread() == null || recebivel.getSpread().compareTo(BigDecimal.ZERO) < 0) {
-            throw new BusinessException("O spread deve ser maior ou igual a zero.");
+        if (recebivel.getTaxaBase() == null || recebivel.getTaxaBase().compareTo(BigDecimal.ZERO) < 0) {
+            throw new BusinessException("A taxa base deve ser maior ou igual a zero.");
         }
     }
 

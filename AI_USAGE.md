@@ -73,6 +73,8 @@ O banco utilizado será PostgreSQL. Organize o projeto tendo todas as entidades 
 
 Implemente também testes unitários e garanta e funcionamento deles.
 
+4. Implemente um relatório de Extrato de Liquidação, que traga dados referentes a transação e ao cálculo dos recebíveis (Taxa base, Tipo recebivel, spread, moedas), Valor Face, dados do cedente, e data de liquidação. Permita filtrar por range de datas de operação ou de liquidação, ou ambos, filtrar por nome do cedente e moeda. Implemente um SQL query performática, para lidar com milhões de operações em segundos. Implemente também paginação
+
 # EFICIÊNCIA IA
 
 Prompt 1 economizou horas elaborando as entidades definidas a partir do modelo ER

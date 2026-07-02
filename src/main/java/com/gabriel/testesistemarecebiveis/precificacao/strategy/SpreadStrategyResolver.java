@@ -7,6 +7,7 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -38,12 +39,23 @@ public class SpreadStrategyResolver {
         if (!StringUtils.hasText(tipoRecebivel)) {
             throw new BusinessException("O tipo de recebível é obrigatório para a precificação.");
         }
-        SpreadStrategy strategy = strategiesByTipo.get(normalizar(tipoRecebivel));
-        if (strategy == null) {
-            throw new BusinessException(
-                    "Não há estratégia de precificação para o tipo de recebível: " + tipoRecebivel + ".");
+        return tentarResolver(tipoRecebivel).orElseThrow(() -> new BusinessException(
+                "Não há estratégia de precificação para o tipo de recebível: " + tipoRecebivel + "."));
+    }
+
+    /**
+     * Tenta resolver a estratégia do tipo informado sem lançar exceção quando não há estratégia
+     * cadastrada (ou o tipo é vazio). Útil para relatórios, que apenas enriquecem os dados com o
+     * spread quando ele é conhecido, sem interromper a listagem.
+     *
+     * @param tipoRecebivel nome do tipo de recebível
+     * @return a estratégia correspondente, ou {@link Optional#empty()} quando não houver
+     */
+    public Optional<SpreadStrategy> tentarResolver(String tipoRecebivel) {
+        if (!StringUtils.hasText(tipoRecebivel)) {
+            return Optional.empty();
         }
-        return strategy;
+        return Optional.ofNullable(strategiesByTipo.get(normalizar(tipoRecebivel)));
     }
 
     private String normalizar(String tipoRecebivel) {
