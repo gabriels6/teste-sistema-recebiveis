@@ -75,6 +75,12 @@ Implemente também testes unitários e garanta e funcionamento deles.
 
 4. Implemente um relatório de Extrato de Liquidação, que traga dados referentes a transação e ao cálculo dos recebíveis (Taxa base, Tipo recebivel, spread, moedas), Valor Face, dados do cedente, e data de liquidação. Permita filtrar por range de datas de operação ou de liquidação, ou ambos, filtrar por nome do cedente e moeda. Implemente um SQL query performática, para lidar com milhões de operações em segundos. Implemente também paginação
 
+5. Implemente o front-end para as APIs de ../teste-sistema-recebiveis. Implemente em uma estrutura de simples
+  entendimento e manutenção, conforme feito em /home/gabriel/dev/Finance-platform-2_0. Adicione um linter para
+  organização do código e centralize as chamadas de API em um único arquivo, assim como feito em Finance-platform-2_0,
+  e utilize Context para controle de variáveis entre tela. Faça também o controle de sessão com o token de
+  autenticação
+
 # EFICIÊNCIA IA
 
 Prompt 1 economizou horas elaborando as entidades definidas a partir do modelo ER
