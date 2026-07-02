@@ -65,8 +65,9 @@ O banco utilizado será PostgreSQL. Organize o projeto tendo todas as entidades 
 
 2. Efetue as seguintes etapas:
     a. Para o login, será feito por JWT. Utilize BCrypt para hashing de hash_senha do usuário e validação posterior
-    b. Implemente o service e controller de autenticação no formato JWT, para login no sistema. O sistema irá funcionar no modelo cliente servidor, a partir de APIs REST, no formato bearer token, para todos os endpoints, exceto aqueles que requerem autenticação
-    c. Implemente um bloqueio de usuário após 3 tentativas falhas, e traga as tentativas restantes
+    b. Implemente o service e controller de autenticação no formato JWT, para login no sistema. O sistema irá funcionar no modelo cliente servidor, a partir de APIs REST, no formato bearer token, para todos os endpoints, exceto aqueles que requerem autenticação (não implemente esses endpoints até o momento)
+    c. Implemente um bloqueio de usuário após 3 tentativas falhas, e traga as tentativas restantes. Traga mensagens explicativas em caso de erros
+    d. Crie testes unitários para cada classe criada de controller ou serviço
 
 # EFICIÊNCIA IA
 
