@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -51,4 +52,11 @@ public class Transacao {
 
     @Column(name = "qtde_operacao", nullable = false, precision = 10, scale = 8)
     private BigDecimal qtdeOperacao;
+
+    @Column(name = "preco_unitario", nullable = false, precision = 10, scale = 8)
+    private BigDecimal precoUnitario;
+
+    @Version
+    @Column(name = "version", nullable = false)
+    private Long version;
 }

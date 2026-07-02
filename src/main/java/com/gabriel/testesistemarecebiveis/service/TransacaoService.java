@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -63,6 +64,30 @@ public class TransacaoService {
         existing.setDataOperacao(transacao.getDataOperacao());
         existing.setDataLiquidacao(transacao.getDataLiquidacao());
         existing.setQtdeOperacao(transacao.getQtdeOperacao());
+        existing.setPrecoUnitario(transacao.getPrecoUnitario());
+        return transacaoRepository.save(existing);
+    }
+
+    /**
+     * Liquida uma transacao preenchendo a data de liquidacao com a data informada.
+     *
+     * <p>A transacao possui uma coluna {@code @Version} (optimistic locking): a leitura
+     * carrega a versao atual e o commit so tem sucesso se a versao nao mudou nesse meio
+     * tempo. Assim, se outra requisicao alterar a mesma transacao concorrentemente, uma
+     * das operacoes falha com {@link org.springframework.orm.ObjectOptimisticLockingFailureException}
+     * (traduzida para HTTP 409) em vez de uma sobrescrever a outra silenciosamente — uma
+     * edicao concorrente nunca cancela a liquidacao, e vice-versa.
+     */
+    @Transactional
+    public Transacao liquidar(Integer id, LocalDate dataLiquidacao) {
+        if (dataLiquidacao == null) {
+            throw new BusinessException("A data de liquidação é obrigatória.");
+        }
+        Transacao existing = findById(id);
+        if (existing.getDataLiquidacao() != null) {
+            throw new BusinessException("A transação já está liquidada.");
+        }
+        existing.setDataLiquidacao(dataLiquidacao);
         return transacaoRepository.save(existing);
     }
 
@@ -90,6 +115,9 @@ public class TransacaoService {
         }
         if (transacao.getQtdeOperacao() == null || transacao.getQtdeOperacao().compareTo(BigDecimal.ZERO) <= 0) {
             throw new BusinessException("A quantidade da operação deve ser maior que zero.");
+        }
+        if (transacao.getPrecoUnitario() == null || transacao.getPrecoUnitario().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new BusinessException("O preço unitário deve ser maior que zero.");
         }
     }
 

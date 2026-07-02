@@ -75,7 +75,7 @@ class ExtratoLiquidacaoRepositoryTest {
         em.persist(Transacao.builder()
                 .usuario(usuario).recebivel(recebivel).moeda(moedaOperacao)
                 .dataOperacao(dataOperacao).dataLiquidacao(dataLiquidacao)
-                .qtdeOperacao(new BigDecimal(valor)).build());
+                .qtdeOperacao(new BigDecimal(valor)).precoUnitario(new BigDecimal("1.00000000")).build());
     }
 
     private ExtratoLiquidacaoFiltro.ExtratoLiquidacaoFiltroBuilder filtroBase() {
