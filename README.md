@@ -45,7 +45,7 @@ Via docker:
 
 # Possibilidade de execução em cenário de alta escala
 
-Para atender uma necessidade de alta escala, de +1 milhão de transações/minuto, uma das abordagens possível é um cache de dados de retorno utilizando Redis, para dados estáticos por um período de tempo, com um TTL de 1 minuto. Já em casos de dados com possibilidade de mudança constante, como as transações, que tendem a acumular um volume maior durante o dia.
+Para atender uma necessidade de alta escala, de +1 milhão de transações/minuto, uma das abordagens possível é um cache de dados de retorno utilizando Redis, para dados estáticos por um período de tempo, com um TTL de 1 minuto. Já em casos de dados com possibilidade de mudança constante, como as transações, que tendem a acumular um volume maior durante o dia, adicionar workers também em Java que recebem essas transações e efetuam suas liquidações ou cálculos pendentes que requerem um processamento mais pesados, assim permitindo escalar verticalmente sem causar impacto na aplicação. Tais workers teriam apenas a função de verificar uma ou mais filas SQS, por exemplo, efetuar o processamento e salvar no banco de dados na sequências.
 
 # Proposta Event Driven Architecture
 
