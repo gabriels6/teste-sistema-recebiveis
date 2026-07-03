@@ -35,3 +35,10 @@ O login é feito via `POST /api/auth/login`, enviando `{ "nome": "admin", "senha
 
 Foi utilizado o Git Flow, devido a familiaridade do desenvolvedor com o fluxo e a possibilidade de centralizar commits de mais de um desenvolvedor na branch intermediária de desenvolvimento (development), montando na sequência as releases quando o código se encontra estável e pronto para subida em produção, e a possibilidade de paralelizar desenvolvimentos distintos (motor de precificação e APIs de CRUD, por exemplo).
 
+# Como executar localmente
+
+Via docker: 
+    - crie um arquivo .env com as configurações próprias do ambiente, conforme o .env.example
+    - execute source .env
+    - execute docker-compose up -d
+    - para o front end, extraia o repositório https://github.com/gabriels6/teste-sistema-recebiveis-frontend, execute npm install para instalar as dependências e npm run start
