@@ -1,0 +1,16 @@
+name: CI
+run-name: ${{ github.actor }} está executando testes CI/CD
+on: [push]
+jobs:
+  Execute-Tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Java 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - run: chmod 777 ./gradlew
+      - run: ./gradlew test

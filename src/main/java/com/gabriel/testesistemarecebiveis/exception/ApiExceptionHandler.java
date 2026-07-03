@@ -130,6 +130,15 @@ public class ApiExceptionHandler {
                 null);
     }
 
+    // --- Dependencia externa (5xx) ----------------------------------------
+
+    @ExceptionHandler(PtaxIndisponivelException.class)
+    public ResponseEntity<ApiResponse<Void>> handlePtaxIndisponivel(
+            PtaxIndisponivelException ex) {
+        LOG.warn("Servico PTAX indisponivel", ex);
+        return build(ApiErro.SERVICO_INDISPONIVEL, ex.getMessage(), null);
+    }
+
     // --- Erro do servidor (5xx) -------------------------------------------
 
     @ExceptionHandler(Exception.class)

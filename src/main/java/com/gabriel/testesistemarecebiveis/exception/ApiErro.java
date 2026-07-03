@@ -36,6 +36,9 @@ public enum ApiErro {
     /** Conflito de estado (ex.: concorrencia ou violacao de integridade). */
     CONFLITO(HttpStatus.CONFLICT),
 
+    /** Dependencia externa indisponivel (ex.: servico PTAX do Banco Central). */
+    SERVICO_INDISPONIVEL(HttpStatus.SERVICE_UNAVAILABLE),
+
     /** Falha inesperada do servidor. */
     ERRO_INTERNO(HttpStatus.INTERNAL_SERVER_ERROR);
 
