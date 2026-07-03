@@ -42,3 +42,11 @@ Via docker:
     - execute source .env
     - execute docker-compose up -d
     - para o front end, extraia o repositório https://github.com/gabriels6/teste-sistema-recebiveis-frontend, execute npm install para instalar as dependências e npm run start
+
+# Possibilidade de execução em cenário de alta escala
+
+Para atender uma necessidade de alta escala, de +1 milhão de transações/minuto, uma das abordagens possível é um cache de dados de retorno utilizando Redis, para dados estáticos por um período de tempo, com um TTL de 1 minuto. Já em casos de dados com possibilidade de mudança constante, como as transações, que tendem a acumular um volume maior durante o dia.
+
+# Proposta Event Driven Architecture
+
+Uma possibilidade de implementar o sistema com event driven architecture seria a implementação de filas com AWS SQS, com o recebimento de dados via API interna, lambda ou kafka, de acordo com os recursos disponíveis, para processamento assíncrono das transações e cadastro por integrações externas, adicionando na sequência um ou mais processadores que consomem dessa fila e executa a criação das entidades e efetua as liquidações e cálculo, que na sequência poderiam efetuar um trigger para retorno dos ativos precificados em outro tópico de retorno do kafka para os demais sistema interessados nesse consumo.
