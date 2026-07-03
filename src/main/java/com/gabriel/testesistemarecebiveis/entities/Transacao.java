@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -59,4 +60,11 @@ public class Transacao {
     @Version
     @Column(name = "version", nullable = false)
     private Long version;
+
+    /**
+     * Deságio calculado (valor presente / preço unitário - 1). Não é persistido:
+     * é preenchido pela listagem a partir da precificação do recebível.
+     */
+    @Transient
+    private BigDecimal desagio;
 }
