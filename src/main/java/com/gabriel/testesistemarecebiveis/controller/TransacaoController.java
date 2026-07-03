@@ -1,6 +1,7 @@
 package com.gabriel.testesistemarecebiveis.controller;
 
 import com.gabriel.testesistemarecebiveis.controller.dto.ApiResponse;
+import com.gabriel.testesistemarecebiveis.controller.dto.DesagioResponse;
 import com.gabriel.testesistemarecebiveis.controller.dto.LiquidacaoRequest;
 import com.gabriel.testesistemarecebiveis.entities.Transacao;
 import com.gabriel.testesistemarecebiveis.service.TransacaoService;
@@ -44,6 +45,12 @@ public class TransacaoController {
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<Transacao>> update(@PathVariable Integer id, @RequestBody Transacao transacao) {
         return ResponseEntity.ok(ApiResponse.success("Transação atualizada com sucesso.", transacaoService.update(id, transacao)));
+    }
+
+    @PostMapping("/desagio")
+    public ResponseEntity<ApiResponse<DesagioResponse>> calcularDesagio(@RequestBody Transacao transacao) {
+        return ResponseEntity.ok(ApiResponse.success("Deságio calculado com sucesso.",
+                transacaoService.calcularDesagio(transacao)));
     }
 
     @PostMapping("/{id}/liquidacao")
