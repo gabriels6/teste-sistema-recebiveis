@@ -12,4 +12,5 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+      - run: chmod 777 ./gradlew
       - run: ./gradlew test
