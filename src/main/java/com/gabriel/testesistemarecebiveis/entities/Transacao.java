@@ -48,7 +48,7 @@ public class Transacao {
     @Column(name = "data_operacao", nullable = false)
     private LocalDate dataOperacao;
 
-    @Column(name = "data_liquidacao")
+    @Column(name = "data_liquidacao", nullable = false)
     private LocalDate dataLiquidacao;
 
     @Column(name = "qtde_operacao", nullable = false, precision = 18, scale = 8)
