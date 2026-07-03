@@ -60,7 +60,7 @@ class ExtratoLiquidacaoRepositoryTest {
         criarTransacao(empresaB, usd, brl, LocalDate.of(2026, 1, 20), LocalDate.of(2026, 2, 20),
                 "22.00");
         // t3: operação 05/02, ainda não liquidada, cedente Alpha, moeda operação BRL
-        criarTransacao(empresaA, brl, brl, LocalDate.of(2026, 2, 5), null, "33.00");
+        criarTransacao(empresaA, brl, brl, LocalDate.of(2026, 2, 5), LocalDate.of(2026, 4, 30), "33.00");
 
         em.flush();
         em.clear();
@@ -73,6 +73,7 @@ class ExtratoLiquidacaoRepositoryTest {
                 .codAtivo("ATV").dataVencimento(LocalDate.of(2026, 6, 1))
                 .taxaBase(new BigDecimal("0.01000000")).build());
         em.persist(Transacao.builder()
+                .dataLiquidacao(dataLiquidacao)
                 .usuario(usuario).recebivel(recebivel).moeda(moedaOperacao)
                 .dataOperacao(dataOperacao).dataLiquidacao(dataLiquidacao)
                 .qtdeOperacao(new BigDecimal(valor)).precoUnitario(new BigDecimal("1.00000000")).build());
@@ -90,7 +91,7 @@ class ExtratoLiquidacaoRepositoryTest {
         // NULLS LAST na ordenação DESC: a não liquidada (t3) vem por último.
         assertThat(itens).extracting(ExtratoLiquidacaoItem::valorFace)
                 .extracting(BigDecimal::intValue)
-                .containsExactly(22, 11, 33);
+                .containsExactly(33, 22, 11);
     }
 
     @Test
