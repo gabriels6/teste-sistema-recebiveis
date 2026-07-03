@@ -13,4 +13,13 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - run: chmod 777 ./gradlew
-      - run: ./gradlew test
+      - name: Run Checkstyle
+        run: ./gradlew checkstyleMain checkstyleTest
+      - name: Upload Checkstyle reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: checkstyle-reports
+          path: build/reports/checkstyle/
+      - name: Run tests
+        run: ./gradlew test
