@@ -1,6 +1,7 @@
 package com.gabriel.testesistemarecebiveis.controller;
 
 import com.gabriel.testesistemarecebiveis.controller.dto.ApiResponse;
+import com.gabriel.testesistemarecebiveis.controller.dto.LiquidacaoRequest;
 import com.gabriel.testesistemarecebiveis.entities.Transacao;
 import com.gabriel.testesistemarecebiveis.service.TransacaoService;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +44,13 @@ public class TransacaoController {
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<Transacao>> update(@PathVariable Integer id, @RequestBody Transacao transacao) {
         return ResponseEntity.ok(ApiResponse.success("Transação atualizada com sucesso.", transacaoService.update(id, transacao)));
+    }
+
+    @PostMapping("/{id}/liquidacao")
+    public ResponseEntity<ApiResponse<Transacao>> liquidar(@PathVariable Integer id,
+                                                           @RequestBody LiquidacaoRequest request) {
+        Transacao liquidada = transacaoService.liquidar(id, request.getDataLiquidacao());
+        return ResponseEntity.ok(ApiResponse.success("Transação liquidada com sucesso.", liquidada));
     }
 
     @DeleteMapping("/{id}")

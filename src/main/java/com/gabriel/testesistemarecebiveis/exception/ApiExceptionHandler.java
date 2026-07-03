@@ -1,6 +1,7 @@
 package com.gabriel.testesistemarecebiveis.exception;
 
 import com.gabriel.testesistemarecebiveis.controller.dto.ApiResponse;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -35,6 +36,14 @@ public class ApiExceptionHandler {
     public ResponseEntity<ApiResponse<Void>> handleNotFound(ResourceNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ApiResponse.error(ex.getMessage(), null));
+    }
+
+    @ExceptionHandler(OptimisticLockingFailureException.class)
+    public ResponseEntity<ApiResponse<Void>> handleOptimisticLocking(OptimisticLockingFailureException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(ApiResponse.error(
+                        "A transação foi modificada por outra operação concorrente. Recarregue os dados e tente novamente.",
+                        null));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
