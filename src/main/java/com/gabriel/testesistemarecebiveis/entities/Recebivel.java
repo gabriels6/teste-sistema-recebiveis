@@ -49,6 +49,6 @@ public class Recebivel {
     @Column(name = "data_vencimento", nullable = false)
     private LocalDate dataVencimento;
 
-    @Column(nullable = false, precision = 10, scale = 8)
-    private BigDecimal spread;
+    @Column(name = "taxa_base", nullable = false, precision = 18, scale = 8)
+    private BigDecimal taxaBase;
 }

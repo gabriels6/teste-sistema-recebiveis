@@ -9,6 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -49,6 +51,20 @@ public class Transacao {
     @Column(name = "data_liquidacao")
     private LocalDate dataLiquidacao;
 
-    @Column(name = "qtde_operacao", nullable = false, precision = 10, scale = 8)
+    @Column(name = "qtde_operacao", nullable = false, precision = 18, scale = 8)
     private BigDecimal qtdeOperacao;
+
+    @Column(name = "preco_unitario", nullable = false, precision = 10, scale = 8)
+    private BigDecimal precoUnitario;
+
+    @Version
+    @Column(name = "version", nullable = false)
+    private Long version;
+
+    /**
+     * Deságio calculado (valor presente / preço unitário - 1). Não é persistido:
+     * é preenchido pela listagem a partir da precificação do recebível.
+     */
+    @Transient
+    private BigDecimal desagio;
 }

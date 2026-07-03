@@ -49,7 +49,7 @@ Campos:
     FK id_tipo_recebivel integer referencia Tipo_Recebivel(id)
         cod_ativo string
         data_vencimento date
-        spread bigdecimal(10,8)
+        taxa_base bigdecimal(10,8)
 
 Tabela: Transacao
 Campos:
@@ -65,11 +65,34 @@ O banco utilizado será PostgreSQL. Organize o projeto tendo todas as entidades 
 
 2. Efetue as seguintes etapas:
     a. Para o login, será feito por JWT. Utilize BCrypt para hashing de hash_senha do usuário e validação posterior
-    b. Implemente o service e controller de autenticação no formato JWT, para login no sistema. O sistema irá funcionar no modelo cliente servidor, a partir de APIs REST, no formato bearer token, para todos os endpoints, exceto aqueles que requerem autenticação
-    c. Implemente um bloqueio de usuário após 3 tentativas falhas, e traga as tentativas restantes
+    b. Implemente o service e controller de autenticação no formato JWT, para login no sistema. O sistema irá funcionar no modelo cliente servidor, a partir de APIs REST, no formato bearer token, para todos os endpoints, exceto aqueles que requerem autenticação (não implemente esses endpoints até o momento)
+    c. Implemente um bloqueio de usuário após 3 tentativas falhas, e traga as tentativas restantes. Traga mensagens explicativas em caso de erros
+    d. Crie testes unitários para cada classe criada de controller ou serviço
+
+3. Implemente as APIs de CRUD para cada uma das entidades, contendo mensagens claras em caso de erros de validação, retornos e payloads padronizados, e seguindo o padrão REST. Implemente também uma documentação dos endpoints utilizando swagger que requeira o mínimo ou nenhuma intervenção manual para atualização da documentação. Elabore a estrutura passando pelos serviços para validação das entidades e inserção/modificação/remoção. Não adicione lógicas de negócio nos controllers, apenas nos services.
+
+Implemente também testes unitários e garanta e funcionamento deles.
+
+4. Implemente um relatório de Extrato de Liquidação, que traga dados referentes a transação e ao cálculo dos recebíveis (Taxa base, Tipo recebivel, spread, moedas), Valor Face, dados do cedente, e data de liquidação. Permita filtrar por range de datas de operação ou de liquidação, ou ambos, filtrar por nome do cedente e moeda. Implemente um SQL query performática, para lidar com milhões de operações em segundos. Implemente também paginação
+
+5. Implemente o front-end para as APIs de ../teste-sistema-recebiveis. Implemente em uma estrutura de simples
+  entendimento e manutenção, conforme feito em /home/gabriel/dev/Finance-platform-2_0. Adicione um linter para
+  organização do código e centralize as chamadas de API em um único arquivo, assim como feito em Finance-platform-2_0,
+  e utilize Context para controle de variáveis entre tela. Faça também o controle de sessão com o token de
+  autenticação
 
 # EFICIÊNCIA IA
 
 Prompt 1 economizou horas elaborando as entidades definidas a partir do modelo ER
 
 # DIFICULDADES IA
+
+Ao criar os testes unitários, IA utilizou recursos que não estavam mais presentes nas libs. Resolvido com prompt:
+
+Estou com problemas ao executar os testes. Algumas das classes passadas como 
+
+```
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;import org.springframework.boot.test.mock.mockito.MockBean;
+```
+
+Não foram identificadas.
