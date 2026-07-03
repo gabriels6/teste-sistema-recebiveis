@@ -42,6 +42,6 @@ public class TaxaCambio {
     @Column(name = "data_referencia", nullable = false)
     private LocalDate dataReferencia;
 
-    @Column(nullable = false, precision = 10, scale = 8)
+    @Column(nullable = false, precision = 18, scale = 8)
     private BigDecimal valor;
 }

@@ -49,6 +49,6 @@ public class Transacao {
     @Column(name = "data_liquidacao")
     private LocalDate dataLiquidacao;
 
-    @Column(name = "qtde_operacao", nullable = false, precision = 10, scale = 8)
+    @Column(name = "qtde_operacao", nullable = false, precision = 18, scale = 8)
     private BigDecimal qtdeOperacao;
 }
