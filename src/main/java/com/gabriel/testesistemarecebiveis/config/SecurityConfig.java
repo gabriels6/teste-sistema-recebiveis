@@ -1,6 +1,8 @@
 package com.gabriel.testesistemarecebiveis.config;
 
 import com.gabriel.testesistemarecebiveis.security.JwtAuthenticationFilter;
+import com.gabriel.testesistemarecebiveis.security.RestAccessDeniedHandler;
+import com.gabriel.testesistemarecebiveis.security.RestAuthenticationEntryPoint;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
@@ -61,13 +63,19 @@ public class SecurityConfig {
      */
     @Bean
     public SecurityFilterChain securityFilterChain(
-            final HttpSecurity http) throws Exception {
+            final HttpSecurity http,
+            final RestAuthenticationEntryPoint authenticationEntryPoint,
+            final RestAccessDeniedHandler accessDeniedHandler)
+            throws Exception {
         http
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(
                                 SessionCreationPolicy.STATELESS))
+                .exceptionHandling(handling -> handling
+                        .authenticationEntryPoint(authenticationEntryPoint)
+                        .accessDeniedHandler(accessDeniedHandler))
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(
                                 HttpMethod.POST, "/api/auth/login")
