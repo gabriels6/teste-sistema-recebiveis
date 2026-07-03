@@ -63,3 +63,21 @@ CREATE TABLE transacao (
     CONSTRAINT fk_transacao_recebivel FOREIGN KEY (id_recebivel) REFERENCES recebivel(id),
     CONSTRAINT fk_transacao_moeda FOREIGN KEY (id_moeda) REFERENCES moeda(id)
 );
+
+-- Filtro por range de data de liquidação + desempate por id, casando com a ordenação do relatório
+-- (data_liquidacao DESC, id DESC). NULLS LAST no índice espelha o ORDER BY para permitir varredura
+-- ordenada sem sort adicional.
+CREATE INDEX IF NOT EXISTS idx_transacao_data_liquidacao
+    ON transacao (data_liquidacao DESC NULLS LAST, id DESC);
+
+-- Junções a partir de transacao.
+CREATE INDEX IF NOT EXISTS idx_transacao_id_recebivel ON transacao (id_recebivel);
+CREATE INDEX IF NOT EXISTS idx_transacao_id_moeda ON transacao (id_moeda);
+
+-- Junção recebivel -> cedente / tipo_recebivel.
+CREATE INDEX IF NOT EXISTS idx_recebivel_id_cedente ON recebivel (id_cedente);
+
+-- Filtro por nome do cedente com correspondência parcial (ILIKE '%termo%'). O índice de trigramas
+-- (GIN) do pg_trgm acelera buscas por substring, que um índice B-tree comum não cobre.
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+CREATE INDEX IF NOT EXISTS idx_cedente_nome_trgm ON cedente USING gin (nome gin_trgm_ops);

@@ -1,0 +1,9 @@
+# Artefatos e diretorios que nao precisam ir para o contexto de build do Docker.
+.git
+.gradle
+build
+.idea
+.vscode
+*.iml
+node_modules
+github-ci-cd.yml
